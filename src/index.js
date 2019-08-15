@@ -10,31 +10,47 @@ const prodsArray = [
  {id: 4, title: "Galaxy M40", price: 20000, image: "M40.jpg"},
  {id: 5, title: "Oneplus 7 Pro", price: 53000, image: "Oneplus7Pro.jpg"}
 ];
- 
+
+class SearchBar extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {value: '' }
+        this.handleInput = this.handleInput.bind(this);
+    }
+    handleInput(e){
+        this.setState({value: e.target.value});
+    }
+
+    render(){
+        return(<input type="text" name="searchBar" value={this.state.value} onChange={this.handleInput} placeholder="search here "/>);
+    }
+}
+
 class Product extends React.Component{
  constructor(props){
    super(props);
+   this.addToCart = this.addToCart.bind(this);
+   this.handleClick = this.handleClick.bind(this);
  }
  handleClick(e, id){
-    console.log("Button is clicked " + e);
+    console.log("Button is clicked " + e.target);
+ }
+ addToCart(e){
+
  }
  render(){
    return (
-     <div class="itembox">
-         <img heigh="220" width="100" src={this.props.image}/>
-         <span class="itemtitle">{this.props.title}</span>
-         <span class="itemprice">{this.props.price}</span>
-         <button onClick={() => this.handleClick(this.props.id)} >Add to Cart</button>
+     <div className="itembox">
+         <img width="100" src={this.props.image} alt={this.props.title}/>
+         <span className="itemtitle">{this.props.title}</span>
+         <span className="itemprice">{this.props.price}</span>
+         <button onClick={this.handleClick} name={this.props.id} >Add to Cart</button>
      </div>
    );
  }
 }
  
 class ProductsList extends React.Component{
- constructor(props){
-   super(props);
-  
- }
  render(){
    const products = this.props.products;
    const listItems = products.map((product) =>
@@ -45,9 +61,6 @@ class ProductsList extends React.Component{
 }
  
 class BrandFilter extends React.Component{
-    constructor(props){
-        super(props);
-    }
  render(){
    return (
        <div>
@@ -59,9 +72,6 @@ class BrandFilter extends React.Component{
 }
 
 class PriceFilter extends React.Component{
-    constructor(props){
-        super(props);
-    }
     render(){
         return (
             <div>
@@ -73,10 +83,6 @@ class PriceFilter extends React.Component{
 }
 
 class Filters extends React.Component{
-    constructor(props){
-        super(props);
-
-    }
     render(){
         return (
             <div>
@@ -88,19 +94,16 @@ class Filters extends React.Component{
 }
  
 class Cart extends React.Component{
-    constructor(props){
-        super(props);
+    render(){
+        return(<p> Cart comes here</p>);
     }
-
 }
 class Main extends React.Component{
-    constructor(props){
-        super(props);
-    }
-
     render(){
         return (
             <div>
+                <Cart />
+                <SearchBar />
                 <Filters />
                 <ProductsList products={prodsArray}/>
             </div>
