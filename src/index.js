@@ -11,6 +11,8 @@ const prodsArray = [
  {id: 5, title: "Oneplus 7 Pro", price: 53000, image: "Oneplus7Pro.jpg"}
 ];
 
+const cartList = [];
+
 class SearchBar extends React.Component{
     constructor(props){
         super(props);
@@ -22,21 +24,26 @@ class SearchBar extends React.Component{
     }
 
     render(){
-        return(<input type="text" name="searchBar" value={this.state.value} onChange={this.handleInput} placeholder="search here "/>);
+        return(
+        <input type="text" name="searchBar" value={this.state.value} onChange={this.handleInput} placeholder="search here "/>);
     }
 }
 
 class Product extends React.Component{
  constructor(props){
    super(props);
-   this.addToCart = this.addToCart.bind(this);
+//    this.addToCart = this.addToCart.bind(this);
    this.handleClick = this.handleClick.bind(this);
  }
  handleClick(e, id){
     console.log("Button is clicked " + e.target);
  }
  addToCart(e){
-
+    // cartList.push(e.target.value);
+    console.log("id is " + e.target.id);
+    console.log("value is " + e.target.value);
+    cartList.push();
+    console.log(cartList);
  }
  render(){
    return (
@@ -44,7 +51,7 @@ class Product extends React.Component{
          <img width="100" src={this.props.image} alt={this.props.title}/>
          <span className="itemtitle">{this.props.title}</span>
          <span className="itemprice">{this.props.price}</span>
-         <button onClick={this.handleClick} name={this.props.id} >Add to Cart</button>
+         <button onClick={this.addToCart} name={this.props.id} value={this.props.value} >Add to Cart</button>
      </div>
    );
  }
@@ -54,7 +61,7 @@ class ProductsList extends React.Component{
  render(){
    const products = this.props.products;
    const listItems = products.map((product) =>
-     <Product key={product.id} title={product.title} price={product.price} image={product.image}/>
+     <Product key={product.id} title={product.title} price={product.price} image={product.image} value={product.id}/>
  );
    return (listItems);
  }
