@@ -9,7 +9,7 @@ const prodsArray = [
  {id: 3, title: "Galaxy M30", price: 17000, image: "M30.jpg", brand: "samsung"},
  {id: 4, title: "Galaxy M40", price: 20000, image: "M40.jpg", brand: "samsung"},
  {id: 5, title: "Oneplus 7 Pro", price: 53000, image: "Oneplus7Pro.jpg", brand: "oneplus"}
-];
+];  
 
 let cartList = [];
 let filteredList = [];
@@ -22,7 +22,17 @@ class SearchBar extends React.Component{
         this.handleInput = this.handleInput.bind(this);
     }
     handleInput(e){
-        this.setState({value: e.target.value});
+        const retrievedValue = e.target.value;
+        const retrValueSmall = retrievedValue.toLowerCase();
+        let filteredList = [];
+        for(let i=0; i<prodsArray.length; i++){
+            if(prodsArray[i].title.toLowerCase().includes(retrValueSmall)){
+                filteredList.push(JSON.parse(JSON.stringify(prodsArray[i])));
+            }
+        }
+        ReactDOM.render(<ProductsList products={filteredList} />, document.getElementById("productsDiv"));
+        this.setState({value: retrievedValue});
+
     }
 
     render(){
