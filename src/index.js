@@ -97,6 +97,9 @@ class BrandFilter extends React.Component{
         const name = target.name;
         const checkedStatus = target.checked;
         console.log(checkedStatus);
+        this.setState({
+            [name]: !checkedStatus
+          });
         if(checkedStatus){
             console.log("brandcheck is "+brandCheck);
             if(!brandCheck.includes(name)){
@@ -132,14 +135,12 @@ class BrandFilter extends React.Component{
                 ReactDOM.render(<ProductsList products={filteredList} />, document.getElementById("productsDiv"));
             }
         }
-        this.setState({
-          [name]: !checkedStatus
-        });
+        
     }
  render(){
    return (
        <div>
-           <label></label>
+        <label>Choose brands</label>
         <input name="samsung" type="checkbox" value="Samsung" onChange={this.handleInputChange} checked={this.state.samsungCheck} /> Samsung
         <input name="oneplus" type="checkbox" value="Oneplus" onChange={this.handleInputChange} checked={this.state.oneplusCheck} /> Oneplus
        </div>
@@ -147,23 +148,34 @@ class BrandFilter extends React.Component{
  }
 }
 
-class PriceFilter extends React.Component{
-    render(){
-        return (
-            <div>
-                <input type="text" name="minValue" placeholder="Enter min price"/>
-                <input type="text" name="maxValue" placeholder="Enter max price"/>
-            </div>
-        );
-    }
-}
+// class PriceFilter extends React.Component{
+//     constructor(props){
+//         super(props);
+//         this.handleInputChange = this.handleInputChange.bind(this);
+//         this.state = {minValue:'', maxValue: ''}
+//     }
+//     handleInputChange(event){
+//         const target = event.target;        
+//         const name = target.name;
+//         this.setState({[name]: target.value});
+
+//     }
+//     render(){
+//         return (
+//             <div>
+//                 <input type="text" name="minValue" value={this.state.minValue} onChange={this.handleInputChange} placeholder="Enter min price"/>
+//                 <input type="text" name="maxValue" value={this.state.maxValue} onChange={this.handleInputChange} placeholder="Enter max price"/>
+//             </div>
+//         );
+//     }
+// }
 
 class Filters extends React.Component{
     render(){
         return (
             <div>
                 <BrandFilter />
-                <PriceFilter />
+                {/* <PriceFilter /> */}
             </div>
         );
     }
