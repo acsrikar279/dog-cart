@@ -4,14 +4,16 @@ import './index.css';
  
  
 const prodsArray = [
- {id: 1, title: "Galaxy A80", price: 47000, image: "A80.jpg"},
- {id: 2, title: "Oneplus 7", price: 33000, image: "Oneplus7.jpg"},
- {id: 3, title: "Galaxy M30", price: 17000, image: "M30.jpg"},
- {id: 4, title: "Galaxy M40", price: 20000, image: "M40.jpg"},
- {id: 5, title: "Oneplus 7 Pro", price: 53000, image: "Oneplus7Pro.jpg"}
+ {id: 1, title: "Galaxy A80", price: 47000, image: "A80.jpg", brand: "samsung"},
+ {id: 2, title: "Oneplus 7", price: 33000, image: "Oneplus7.jpg", brand: "oneplus"},
+ {id: 3, title: "Galaxy M30", price: 17000, image: "M30.jpg", brand: "samsung"},
+ {id: 4, title: "Galaxy M40", price: 20000, image: "M40.jpg", brand: "samsung"},
+ {id: 5, title: "Oneplus 7 Pro", price: 53000, image: "Oneplus7Pro.jpg", brand: "oneplus"}
 ];
 
-const cartList = [];
+let cartList = [];
+let filteredList = [];
+let brandCheck = [];
 
 class SearchBar extends React.Component{
     constructor(props){
@@ -32,18 +34,12 @@ class SearchBar extends React.Component{
 class Product extends React.Component{
  constructor(props){
    super(props);
-//    this.addToCart = this.addToCart.bind(this);
-   this.handleClick = this.handleClick.bind(this);
- }
- handleClick(e, id){
-    console.log("Button is clicked " + e.target);
+   this.addToCart = this.addToCart.bind(this);
  }
  addToCart(e){
-    // cartList.push(e.target.value);
-    console.log("id is " + e.target.id);
-    console.log("value is " + e.target.value);
-    cartList.push();
-    console.log(cartList);
+    var retrievedID = e.target.value;
+    cartList.push(JSON.parse(JSON.stringify(prodsArray[retrievedID-1])));
+    ReactDOM.render(<CartList cart={cartList}/>, document.getElementById('cartDiv'));
  }
  render(){
    return (
@@ -67,12 +63,85 @@ class ProductsList extends React.Component{
  }
 }
  
+class CartList extends React.Component{
+    render(){
+        const cart = this.props.cart;
+        const listItems = cart.map((cart) =>
+          <CartItem key={cart.id} title={cart.title} price={cart.price} image={cart.image} value={cart.id}/>
+      );
+        return (listItems);
+      }
+}
+
+class CartItem extends React.Component{
+    render(){
+   return (
+     <div>
+         <img width="50" height="100" src={this.props.image} alt={this.props.title}/>
+         <span className="itemtitle">{this.props.title}</span>
+         <span className="itemprice">{this.props.price}</span>
+     </div>
+   );
+ }
+}
+
 class BrandFilter extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {samsung: false, oneplus: false};
+        this.handleInputChange = this.handleInputChange.bind(this);
+        
+    }
+    handleInputChange(event){
+        const target = event.target;        
+        const name = target.name;
+        const checkedStatus = target.checked;
+        console.log(checkedStatus);
+        if(checkedStatus){
+            console.log("brandcheck is "+brandCheck);
+            if(!brandCheck.includes(name)){
+                for(let i=0; i<prodsArray.length; i++){
+                    if(prodsArray[i].brand === name){
+                        filteredList.push(JSON.parse(JSON.stringify(prodsArray[i])));
+                    }
+                }
+                ReactDOM.render(<ProductsList products={filteredList} />, document.getElementById("productsDiv"));
+            }
+            brandCheck.push(name);    
+        }
+        else{
+            let index = brandCheck.indexOf(name);
+            if(index > -1){
+                brandCheck.splice(index, 1);
+            }
+            let n = filteredList.length;
+            let nl = [];
+            var i = 0;
+            for(i=0; i<n; i++){
+                if(!(filteredList[i].brand === name)){
+                    nl.push(JSON.parse(JSON.stringify(filteredList[i])));
+                }
+            }
+            filteredList = nl;
+            nl = [...filteredList];
+            nl = [];
+            if(brandCheck.length===0){
+                ReactDOM.render(<ProductsList products={prodsArray} />, document.getElementById("productsDiv"));
+            }
+            else{
+                ReactDOM.render(<ProductsList products={filteredList} />, document.getElementById("productsDiv"));
+            }
+        }
+        this.setState({
+          [name]: !checkedStatus
+        });
+    }
  render(){
    return (
        <div>
-        <input type="checkbox" value="Samsung"/> Samsung
-        <input type="checkbox" value="Oneplus"/> Oneplus
+           <label></label>
+        <input name="samsung" type="checkbox" value="Samsung" onChange={this.handleInputChange} checked={this.state.samsungCheck} /> Samsung
+        <input name="oneplus" type="checkbox" value="Oneplus" onChange={this.handleInputChange} checked={this.state.oneplusCheck} /> Oneplus
        </div>
    );
  }
@@ -99,24 +168,23 @@ class Filters extends React.Component{
         );
     }
 }
- 
-class Cart extends React.Component{
-    render(){
-        return(<p> Cart comes here</p>);
-    }
-}
-class Main extends React.Component{
-    render(){
-        return (
-            <div>
-                <Cart />
-                <SearchBar />
-                <Filters />
-                <ProductsList products={prodsArray}/>
-            </div>
-        ); 
-    }
-}
 
-// ReactDOM.render(<ProductsList products={prodsArray} />, document.getElementById('root'));
-ReactDOM.render(<Main />, document.getElementById('root'));
+
+// class Main extends React.Component{
+//     render(){
+//         return (
+//             <div>
+//                 <CartList cart={cartList}/>
+//                 <SearchBar />
+//                 <Filters />
+//                 <ProductsList products={prodsArray}/>
+//             </div>
+//         ); 
+//     }
+// }
+
+ReactDOM.render(<CartList cart={cartList} />, document.getElementById('cartDiv'));
+ReactDOM.render(<Filters />, document.getElementById('filtersDiv'));
+ReactDOM.render(<SearchBar />, document.getElementById('searchDiv'));
+ReactDOM.render(<ProductsList products={prodsArray} />, document.getElementById('productsDiv'));
+// ReactDOM.render(<Main />, document.getElementById('root'));
