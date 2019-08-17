@@ -4,11 +4,16 @@ import './index.css';
  
  
 const prodsArray = [
- {id: 1, title: "Galaxy A80", price: 47000, image: "A80.jpg", brand: "samsung"},
- {id: 2, title: "Oneplus 7", price: 33000, image: "Oneplus7.jpg", brand: "oneplus"},
- {id: 3, title: "Galaxy M30", price: 17000, image: "M30.jpg", brand: "samsung"},
- {id: 4, title: "Galaxy M40", price: 20000, image: "M40.jpg", brand: "samsung"},
- {id: 5, title: "Oneplus 7 Pro", price: 53000, image: "Oneplus7Pro.jpg", brand: "oneplus"}
+ {id: 1, title: "Samsung Galaxy Note 10+ (Aura White, 12GB RAM, 256GB Storage) with No Cost EMI/Additional Exchange Offers", price: 79999, image: "GalaxyNote10+.jpg", brand: "samsung"},
+ {id: 2, title: "Samsung Galaxy A80 (Phantom Black, 8GB RAM, 128GB Storage) with No Cost EMI/Additional Exchange Offers", price: 47999, image: "A80.jpg", brand: "samsung"},
+ {id: 3, title: "OnePlus 7 (Mirror Grey, 8GB RAM, 256GB Storage)", price: 37999, image: "Oneplus7.jpg", brand: "oneplus"},
+ {id: 4, title: "Samsung Galaxy M30 (Gradation Black, 6+128 GB) ", price: 16990, image: "M30.jpg", brand: "samsung"},
+ {id: 5, title: "Samsung Galaxy M40 (Midnight Blue, 6GB RAM, 128GB Storage)", price: 19990, image: "M40.jpg", brand: "samsung"},
+ {id: 6, title: "OnePlus 7 Pro (Nebula Blue, 8GB RAM, 256GB Storage)", price: 53000, image: "Oneplus7Pro.jpg", brand: "oneplus"},
+ {id: 7, title: "Samsung Galaxy A50 (Blue, 6GB RAM, 64GB Storage) with No Cost EMI/Additional Exchange Offers", price: 21490, image: "GalaxyA50.jpg", brand: "samsung"},
+ {id: 8, title: "Apple iPhone 7 Plus (32GB) - Black", price: 36990, image: "AppleIphone7Plus.jpg", brand: "apple"},
+ {id: 9, title: "Apple iPhone XR (128GB) - Black", price: 64900, image: "AppleIphoneXR.jpg", brand: "apple"},
+ {id: 10, title: "Apple iPhone 6s (32GB) - Gold", price: 28999, image: "AppleIphone6s.jpg", brand: "apple"}
 ];  
 
 let cartList = [];
@@ -98,7 +103,7 @@ class CartItem extends React.Component{
 class BrandFilter extends React.Component{
     constructor(props){
         super(props);
-        this.state = {samsung: false, oneplus: false};
+        this.state = {samsung: false, oneplus: false, apple: false};
         this.handleInputChange = this.handleInputChange.bind(this);
         
     }
@@ -153,6 +158,7 @@ class BrandFilter extends React.Component{
         <label>Choose brands</label>
         <input name="samsung" type="checkbox" value="Samsung" onChange={this.handleInputChange} checked={this.state.samsungCheck} /> Samsung
         <input name="oneplus" type="checkbox" value="Oneplus" onChange={this.handleInputChange} checked={this.state.oneplusCheck} /> Oneplus
+        <input name="apple" type="checkbox" value="Apple" onChange={this.handleInputChange} checked={this.state.appleCheck} /> Apple
        </div>
    );
  }
