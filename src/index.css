@@ -48,6 +48,10 @@ aside {
     height: 220px;
 }
 
+.grid-item p{
+    text-align: justify;
+}
+
 .addToCartButton{
     width: 100px;
     border: 1px solid rgb(202, 143, 32);
@@ -55,6 +59,16 @@ aside {
     color: orange;
     background-color: white;
     font-size: 0.9em;
+}
+
+.addToCartButton:hover{
+    width: 100px;
+    border: 1px solid rgb(202, 143, 32);
+    padding: 10px;
+    color: white;
+    background-color: orange;
+    font-size: 0.9em;
+    cursor: pointer;
 }
 
 .grid-item span{

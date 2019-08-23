@@ -61,7 +61,7 @@ class Product extends React.Component{
      <div className="grid-item">
          <img src={this.props.image} alt={this.props.title}/>
          <p>{this.props.title}</p>
-         <span>{this.props.price}</span>
+         <span> Rs. {this.props.price} /-</span>
          <button className="addToCartButton" onClick={this.addToCart} name={this.props.id} value={this.props.value} >Add to Cart</button>
      </div>
    );
