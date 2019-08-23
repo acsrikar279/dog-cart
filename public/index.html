@@ -23,12 +23,7 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="cartDiv"></div>
-    
-    <div id="searchDiv"></div>
-    <div id="filtersDiv"></div>
-    <div id="productsDiv"></div>
-    <div id="root"></div>
+
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -39,5 +34,26 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <div id="cartDiv"></div>
+    <div class="page">
+      <header>
+        <h2>Srikar's webpage for learning React</h2>
+        <div id="searchDiv"></div>
+      </header>
+
+      <aside>
+        <div id="filtersDiv"></div>
+      </aside>
+
+      <section id="productsDiv" class="product-grid"></section>
+
+      <!-- <div class="left-footer">
+        <h2>Left Footer</h2>
+      </div>
+
+      <div class="right-footer">
+        <h2>Right Footer</h2>
+      </div> -->
+    </div>
   </body>
 </html>

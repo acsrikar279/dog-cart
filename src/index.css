@@ -1,17 +1,72 @@
-.itembox{
-    padding: 20px;
-    border: 3px solid #cccccc;
-    margin: 20px;
-    width: 120px;
-
+*{
+    margin: 3px;
+    padding: 3px;
+}
+.page {
+  display: grid;
+  grid: 100px auto / repeat(5, 1fr);
+  grid-template-areas:
+    "header header header header header"
+    "sidebar products products products products";
+  grid-gap: 20px;
 }
 
-.itembox .itemtitle{
-    color: red;
+header {
+  grid-area: header;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+.searchBar{
+    width: 200px;
+    padding: 5px;
+    font-size: 0.9em;
+}
+
+aside {
+  grid-area: sidebar;
+  border: 1px solid #ccc;
+}
+
+.product-grid {
+  grid-area: products;
+  display: grid;
+  grid: auto / repeat(4, 1fr);
+  border: 1px solid #ccc;
+}
+.grid-item {
+    justify-self: center;
+    align-self: center;
+    text-align: center;
+    border: 1px solid #cccccc;
+    margin: 5px;
     display: block;
 }
 
-.itembox .itemprice{
-    color: blue;
+.grid-item img{
+    width: 100px;
+    height: 220px;
+}
+
+.addToCartButton{
+    width: 100px;
+    border: 1px solid rgb(202, 143, 32);
+    padding: 10px;
+    color: orange;
+    background-color: white;
+    font-size: 0.9em;
+}
+
+.grid-item span{
     display: block;
+}
+
+.left-footer {
+  grid-area: left-footer;
+  border: 1px solid #ccc;
+}
+
+.right-footer {
+  grid-area: right-footer;
+  border: 1px solid #ccc;
 }
